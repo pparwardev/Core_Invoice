@@ -1,0 +1,24 @@
+{
+  "name": "core-invoice",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Core-Invoice — Vendor Billing Web Application",
+  "main": "electron/main.js",
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "dev:server": "npm run dev --workspace=server",
+    "dev:client": "npm run dev --workspace=client",
+    "build": "npm run build --workspace=server && npm run build --workspace=client",
+    "build:desktop": "npm run build && npx electron-builder --win --config electron-builder.json",
+    "electron:dev": "npm run build --workspace=server && electron .",
+    "test": "npm run test --workspace=server",
+    "test:server": "npm run test --workspace=server"
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.1.8"
+  }
+}

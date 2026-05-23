@@ -1,0 +1,57 @@
+{
+  "appId": "com.bluspring.core-invoice",
+  "productName": "Core-Invoice",
+  "directories": {
+    "output": "dist-electron"
+  },
+  "files": [
+    "electron/**/*",
+    "server/dist/**/*",
+    "server/data/**/*",
+    "server/package.json",
+    "server/node_modules/**/*",
+    "server/.env",
+    "server/eng.traineddata",
+    "server/hin.traineddata",
+    "client/dist/**/*",
+    "client/public/**/*",
+    "!server/node_modules/.cache",
+    "!**/node_modules/*/{CHANGELOG.md,README.md,readme.md,LICENSE,license}",
+    "!**/node_modules/**/*.map",
+    "!**/node_modules/**/*.ts",
+    "!**/*.tsbuildinfo"
+  ],
+  "asarUnpack": [
+    "server/node_modules/better-sqlite3/**/*",
+    "server/node_modules/bcrypt/**/*",
+    "server/data/**/*",
+    "server/eng.traineddata",
+    "server/hin.traineddata"
+  ],
+  "extraResources": [
+    {
+      "from": "server/data",
+      "to": "app/server/data",
+      "filter": ["**/*", "!uploads/*"]
+    }
+  ],
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": ["x64"]
+      }
+    ],
+    "icon": "client/public/core-invoice-icon.png"
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "shortcutName": "Core-Invoice",
+    "installerIcon": "client/public/core-invoice-icon.png",
+    "uninstallerIcon": "client/public/core-invoice-icon.png"
+  },
+  "electronVersion": "33.4.11"
+}

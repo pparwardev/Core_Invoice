@@ -1,0 +1,12 @@
+[project]
+name = "po-billing-assistant"
+version = "1.0.0"
+description = "MCP server for reading Purchase Order PDFs and vendor billing workflows"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp>=1.0.0",
+    "pdfplumber>=0.10.0",
+]
+
+[project.scripts]
+po-billing-assistant = "server:main"

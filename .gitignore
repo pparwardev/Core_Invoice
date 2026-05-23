@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+.venv/
+
+# Build outputs
+server/dist/
+client/dist/
+dist-electron/
+dist-portable/
+
+# Package files
+*.zip
+
+# Environment
+server/.env
+.env
+
+# Database (include db for deployment, exclude uploads)
+# server/data/core-invoice.db
+server/data/uploads/*
+!server/data/uploads/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# TypeScript
+*.tsbuildinfo
+
+# Kiro
+.kiro/

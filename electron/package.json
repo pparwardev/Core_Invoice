@@ -1,0 +1,8 @@
+{
+  "name": "core-invoice-desktop",
+  "version": "1.0.0",
+  "description": "Core-Invoice — Vendor Billing Desktop Application",
+  "main": "main.js",
+  "author": "Bluspring Enterprises",
+  "license": "MIT"
+}
