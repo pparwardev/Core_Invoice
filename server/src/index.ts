@@ -62,7 +62,7 @@ app.use('/api/chat', createChatbotRoutes(db));
 const clientBuildPath = path.resolve(__dirname, '../../client/dist');
 app.use(express.static(clientBuildPath));
 app.get('*', (req, res) => {
-  if (!req.path.startsWith('/api')) {
+  if (!req.path.startsWith('/api') && !req.path.startsWith('/uploads')) {
     res.sendFile(path.join(clientBuildPath, 'index.html'));
   }
 });
