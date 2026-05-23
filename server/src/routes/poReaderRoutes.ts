@@ -284,6 +284,23 @@ export function createPoReaderRoutes(db: Knex): Router {
     }
   });
 
+  // Serve PO PDF inline (for iframe embedding)
+  router.get('/pdf/:filename', async (req: Request, res: Response) => {
+    try {
+      const filename = path.basename(req.params.filename); // sanitize — no path traversal
+      const filePath = path.join(UPLOAD_DIR, filename);
+      if (!fs.existsSync(filePath)) {
+        res.status(404).json({ error: 'File not found' });
+        return;
+      }
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', `inline; filename="${filename}"`);
+      res.sendFile(filePath);
+    } catch (error: any) {
+      res.status(500).json({ error: 'Failed to serve PDF: ' + error.message });
+    }
+  });
+
   // Mark PO as expired
   router.put('/:poId/expire', async (req: Request, res: Response) => {
     try {

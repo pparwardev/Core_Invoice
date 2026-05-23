@@ -966,10 +966,11 @@ export default function VendorDetailPage() {
               (() => {
                 const po = vendor.purchaseOrders?.find((p: any) => p.id === selectedPoId);
                 if (!po) return <div className="flex-1 flex items-center justify-center text-gray-400">PO not found</div>;
-                const pdfUrl = po.file_path ? `/uploads/${po.file_path}` : null;
+                // Use dedicated PDF endpoint that sets correct Content-Type: application/pdf inline
+                const pdfUrl = po.file_path ? `/api/po-reader/pdf/${encodeURIComponent(po.file_path)}` : null;
                 return (
                   <>
-                    <div className="px-4 py-3 border-b border-gray-100 bg-gray-50 flex items-center justify-between">
+                    <div className="px-4 py-3 border-b border-gray-100 bg-gray-50 flex items-center justify-between shrink-0">
                       <div>
                         <span className="font-semibold text-sm text-gray-800">{po.po_number}</span>
                         <span className="text-xs text-gray-400 ml-2">{po.service_description}</span>
@@ -982,26 +983,13 @@ export default function VendorDetailPage() {
                       )}
                     </div>
                     {pdfUrl ? (
-                      <object
-                        data={pdfUrl}
-                        type="application/pdf"
-                        className="flex-1 w-full"
-                        aria-label={`PO ${po.po_number}`}
-                      >
-                        {/* Fallback for browsers that can't render PDF inline */}
-                        <div className="flex-1 flex flex-col items-center justify-center text-gray-400 p-8 h-full">
-                          <span className="text-5xl mb-3">📄</span>
-                          <p className="text-sm font-medium text-gray-600">PDF preview not available in this browser</p>
-                          <a
-                            href={pdfUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="mt-3 px-4 py-2 bg-[#4fc3f7] text-white rounded-lg text-sm font-medium hover:bg-[#3bb5e8] transition-colors"
-                          >
-                            ↗ Open PDF in new tab
-                          </a>
-                        </div>
-                      </object>
+                      <iframe
+                        key={pdfUrl}
+                        src={pdfUrl}
+                        className="flex-1 w-full border-0"
+                        title={`PO ${po.po_number}`}
+                        style={{ minHeight: 0 }}
+                      />
                     ) : (
                       <div className="flex-1 flex flex-col items-center justify-center text-gray-400 p-8">
                         <span className="text-5xl mb-3">📄</span>
