@@ -287,7 +287,7 @@ export function createPoReaderRoutes(db: Knex): Router {
   // Serve PO PDF inline (for iframe embedding)
   router.get('/pdf/:filename', async (req: Request, res: Response) => {
     try {
-      const filename = path.basename(req.params.filename); // sanitize — no path traversal
+      const filename = path.basename(String(req.params.filename)); // sanitize — no path traversal
       const filePath = path.join(UPLOAD_DIR, filename);
       if (!fs.existsSync(filePath)) {
         res.status(404).json({ error: 'File not found' });
